@@ -1,0 +1,63 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+server:
+  port: 8000
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  jpa:
+    properties:
+      hibernate:
+        formatSql: true
+        ddl-auto: create-drop
+        generate-ddl: true
+        jdbc:
+          lob:
+            none_contextual_creation: true
+    show-sql: true
+    generate-ddl: false
+
+  datasource:
+    url: URL
+    username: USERNAME
+    password: PASSWORD
+    driver-class-name: org.h2.Driver
+
+---
+
+server:
+  port: 9000
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  jpa:
+    properties:
+      hibernate:
+        formatSql: true
+        ddl-auto: none
+        generate-ddl: true
+        jdbc:
+          lob:
+            none_contextual_creation: true
+    show-sql: false
+    generate-ddl: false
+
+  datasource:
+    url:
+    username: ${USERNAME:sa}
+    password: ${PASSWORD:password}
+    driver-class-name: org.h2.Driver
